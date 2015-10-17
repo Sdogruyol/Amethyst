@@ -1,4 +1,5 @@
 require "./middleware"
+
 module Amethyst
   module Middleware
     class HttpLogger < Middleware::Base
@@ -37,7 +38,7 @@ module Amethyst
       end
 
       def call(request)
-        #system("clear")
+        # system("clear")
         logger.log_paragraph self
         log_request request
         log_cookies(request.headers)

@@ -3,7 +3,7 @@ module Amethyst
     class Params
       getter :hash
 
-      def initialize(default="")
+      def initialize(default = "")
         @params = Hash(String, String).new(default)
       end
 
@@ -23,10 +23,10 @@ module Amethyst
       end
 
       def from_hash(hash : Hash)
-        hash.each { |k,v| @params[k.to_s] = v.to_s }
+        hash.each { |k, v| @params[k.to_s] = v.to_s }
       end
 
-      def []=(k,v)
+      def []=(k, v)
         @params[k.to_s] = v.to_s
       end
 
@@ -48,10 +48,10 @@ module Amethyst
 
       def to_s(io : IO)
         msg = "\n{\n"
-        @params.each do |k,v|
-          msg+="#{k} => #{v}\n"
+        @params.each do |k, v|
+          msg += "#{k} => #{v}\n"
         end
-        msg +="\n}"
+        msg += "\n}"
         io << msg
       end
 

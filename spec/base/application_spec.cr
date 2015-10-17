@@ -2,7 +2,6 @@ require "./spec_helper"
 # require "minitest/autorun"
 
 describe Base::App do
-
   describe "#initialize" do
     app = Base::App.new
 

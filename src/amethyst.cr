@@ -11,7 +11,6 @@ require "base64"
 require "secure_random"
 require "mime"
 
-
 # Include all Amethyst modules to global namespace
 # But, you can use Amethyst::Modulename approach too
 include Amethyst

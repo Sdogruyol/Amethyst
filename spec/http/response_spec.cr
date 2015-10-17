@@ -1,7 +1,6 @@
 require "./spec_helper"
 
 describe Response do
-
   response = Response.new(404, "Not Found")
 
   describe "#header" do

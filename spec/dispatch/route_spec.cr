@@ -1,21 +1,19 @@
 require "./spec_helper"
 
 describe Route do
-
-  strict_route  = Route.new("/index/", "IndexController", "hello")
+  strict_route = Route.new("/index/", "IndexController", "hello")
   strict_route.add_request_method("GET")
 
-  root_route    = Route.new("/", "IndexController", "show")
+  root_route = Route.new("/", "IndexController", "show")
   root_route.add_request_method("POST")
 
-  paramered_route  = Route.new("/users/show/:id", "UsersController", "show")
+  paramered_route = Route.new("/users/show/:id", "UsersController", "show")
   paramered_route.add_request_method("PUT")
 
-  matched_route   = Route.new("/index", "IndexController", "all")
+  matched_route = Route.new("/index", "IndexController", "all")
   matched_route.add_request_method("DELETE")
 
   describe "#initialize" do
-
     it "instantiates route properly" do
       strict_route.pattern.should eq "/index$"
       strict_route.length.should eq 2
@@ -31,7 +29,6 @@ describe Route do
   end
 
   describe "#matches?" do
-
     it "matches a given path with strict route" do
       strict_route.matches?("/index", "GET").should eq true
       expect_raises HttpMethodNotAllowed do
@@ -69,9 +66,7 @@ describe Route do
     end
   end
 
-
   describe "#add_request_method" do
-
     it "raises an exception if unsupported method given" do
       route = Route.new("/", "IndexController", "hello")
       expect_raises UnsupportedHttpMethod do
@@ -99,16 +94,16 @@ describe Route do
   end
 
   it "respond to added http methods that allowed" do
-      route = Route.new("/", "IndexController", "hello")
-      route.add_request_method("GET")
-      route.add_request_method("PUT")
-      route.matches?("/", "GET").should eq true
-      route.matches?("/", "PUT").should eq true
-      expect_raises HttpMethodNotAllowed do
-        route.matches?("/", "DELETE")
-      end
-      expect_raises HttpNotImplemented do
-        route.matches?("/", "CONNECT")
-      end
+    route = Route.new("/", "IndexController", "hello")
+    route.add_request_method("GET")
+    route.add_request_method("PUT")
+    route.matches?("/", "GET").should eq true
+    route.matches?("/", "PUT").should eq true
+    expect_raises HttpMethodNotAllowed do
+      route.matches?("/", "DELETE")
     end
+    expect_raises HttpNotImplemented do
+      route.matches?("/", "CONNECT")
+    end
+  end
 end

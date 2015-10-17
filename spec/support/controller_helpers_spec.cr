@@ -1,31 +1,30 @@
 require "./spec_helper"
 
 class HelpersTestController < Base::Controller
-    actions :html_test, :text_test, :json_test, :redirect_to_test
+  actions :html_test, :text_test, :json_test, :redirect_to_test
 
-    def html_test
-      html "Not found", status: 404
-    end
-
-    def text_test
-      text "Hello world"
-    end
-
-    def json_test
-      json "Hello world"
-    end
-
-    def json_test_with_hash
-      json({hello: "World"})
-    end
-
-    def redirect_to_test
-      redirect_to "google.com"
-    end
+  def html_test
+    html "Not found", status: 404
   end
 
-describe Support::ControllerHelpers do
+  def text_test
+    text "Hello world"
+  end
 
+  def json_test
+    json "Hello world"
+  end
+
+  def json_test_with_hash
+    json({hello: "World"})
+  end
+
+  def redirect_to_test
+    redirect_to "google.com"
+  end
+end
+
+describe Support::ControllerHelpers do
   helpers_test_controller = create_controller_instance HelpersTestController
 
   describe "#html" do

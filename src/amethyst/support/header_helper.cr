@@ -1,7 +1,6 @@
 module Amethyst
   module Support
-    module HeaderHelper 
-
+    module HeaderHelper
       # Sets header: header "Location", "google.com"
       def header(key, value)
         @headers[key] = value

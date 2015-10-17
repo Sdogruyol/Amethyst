@@ -1,7 +1,6 @@
 require "./spec_helper"
 
 describe Pool do
-
   session_pool = Pool::INSTANCE
 
   describe "#generate_sid" do

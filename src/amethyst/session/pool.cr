@@ -30,9 +30,9 @@ module Amethyst
 
       def generate_sid
         sid = loop do
-          sid = Base64.urlsafe_encode(SecureRandom.random_bytes(128))
-          break sid unless @pool.has_key?(sid)
-        end
+                sid = Base64.urlsafe_encode(SecureRandom.random_bytes(128))
+                break sid unless @pool.has_key?(sid)
+              end
         @pool[sid] = {} of Symbol => String
         sid
       end
@@ -50,7 +50,6 @@ module Amethyst
           @pool.delete(sid)
         end
       end
-
     end
   end
 end

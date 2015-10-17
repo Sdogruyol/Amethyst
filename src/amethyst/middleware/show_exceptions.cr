@@ -1,7 +1,6 @@
 module Amethyst
   module Middleware
     class ShowExceptions < Middleware::Base
-
       def call(request : Http::Request)
         begin
           response = @app.call(request)
@@ -20,5 +19,4 @@ module Amethyst
     end
   end
 end
-
-#TODO : Make an exception controller and view
+# TODO : Make an exception controller and view

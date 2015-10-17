@@ -10,28 +10,24 @@ module Amethyst
     end
 
     class UnknownContentType < AmethystException
-
       def initialize(@ext)
         super("Unknown content-type for file extension #{@ext}")
       end
     end
 
     class UnsupportedHttpMethod < AmethystException
-
       def initialize(@ext)
         super("Method #{@method} is not supported. Use #{Http::METHODS.join(" ")}")
       end
     end
 
     class HttpNotFound < HttpException
-
       def initialize
         super(404, "Not found")
       end
     end
 
     class HttpBadRequest < HttpException
-
       def initialize
         super(400, "Bad request")
       end

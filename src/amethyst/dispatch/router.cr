@@ -15,8 +15,8 @@ module Amethyst
         @controllers["#{{{klass_name.id}}}"] = {{klass_name.id}}
       end
 
-      def initialize()
-        @routes      = [] of Dispatch::Route
+      def initialize
+        @routes = [] of Dispatch::Route
         @controllers = {} of String => Base::Controller.class
         @matched_route :: Dispatch::Route
         @controllers_instances = {} of String => Base::Controller
@@ -49,7 +49,7 @@ module Amethyst
       # Process regular routes (which are in @routes)
       def process_named_route(request : Http::Request, response : Http::Response)
         controller = @matched_route.controller
-        controller_instance = @controllers_instances[controller] ||=  @controllers.fetch(controller).new
+        controller_instance = @controllers_instances[controller] ||= @controllers.fetch(controller).new
         controller_instance.set_env(request, response)
         response = @controllers_instances[controller].call_action(@matched_route.action)
       end
@@ -60,10 +60,10 @@ module Amethyst
 
         if match
           controller = match["controller"] as String
-          action     = match["action"]     as String
-          controller = Base::App.settings.namespace+controller.capitalize+"Controller"
+          action = match["action"] as String
+          controller = Base::App.settings.namespace + controller.capitalize + "Controller"
           if @controllers.has_key? controller
-            controller_instance = @controllers_instances[controller] ||=  @controllers.fetch(controller).new
+            controller_instance = @controllers_instances[controller] ||= @controllers.fetch(controller).new
             controller_instance.set_env(request, response)
           end
           response = @controllers_instances[controller].call_action(action)

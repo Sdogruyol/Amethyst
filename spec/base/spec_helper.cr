@@ -8,6 +8,7 @@ class ViewController < Controller
   end
 
   view "hello", "#{__DIR__}/views/"
+
   def hello
     @name = "Andrew"
     respond_to do |format|

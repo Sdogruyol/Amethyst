@@ -1,19 +1,18 @@
 require "./spec_helper"
 
 describe Request do
-
   describe "#initialize" do
-    headers           = HTTP::Headers.new
+    headers = HTTP::Headers.new
     headers["Accept"] = ["text/plain"]
-    base_request      = HTTP::Request.new("GET", "/", headers, "Test")
-    request           = Request.new(base_request)
+    base_request = HTTP::Request.new("GET", "/", headers, "Test")
+    request = Request.new(base_request)
 
     it "instantiate Request object properly" do
-      request.method.should             eq "GET"
-      request.path.should               eq "/"
-      request.headers["Accept"].should  eq "text/plain"
-      request.body.should               eq "Test"
-      request.version.should            eq "HTTP/1.1"
+      request.method.should eq "GET"
+      request.path.should eq "/"
+      request.headers["Accept"].should eq "text/plain"
+      request.body.should eq "Test"
+      request.version.should eq "HTTP/1.1"
     end
   end
 
@@ -58,7 +57,6 @@ describe Request do
     end
   end
 
-
   describe "#path" do
     it "returns path without query string" do
       request = HttpHlp.req("GET", "/index")
@@ -69,24 +67,21 @@ describe Request do
     end
   end
 
-
   describe "#query_parameters" do
     it "returns query (GET) parameters" do
       request = HttpHlp.req("GET", "/index?user=user&name=name")
-      request.query_parameters.should eq Hash{"user" : "user", "name" : "name"}
+      request.query_parameters.should eq Hash{"user": "user", "name": "name"}
     end
   end
-
 
   describe "#request_parameters" do
     it "returns request (POST) parameters" do
       request = HttpHlp.req("GET", "/")
       request.body = "user=Andrew&id=5"
       request.content_type = "application/x-www-form-urlencoded"
-      request.request_parameters.should eq Hash{ "user" => "Andrew", "id" => "5"}
+      request.request_parameters.should eq Hash{"user" => "Andrew", "id" => "5"}
     end
   end
-
 
   describe "#path_parameters" do
     it "returns path parameters" do
@@ -95,13 +90,11 @@ describe Request do
         get "/users/:id", "index#users"
         register IndexController
       end
-      request.path_parameters.should eq Hash{ "id" => "55"}
+      request.path_parameters.should eq Hash{"id" => "55"}
     end
   end
 
-
   describe "#accept" do
-
     it "returns 'text/html' if Accept header contains '*/*'" do
       request = HttpHlp.req("GET", "/users/55")
       accept_string = "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0"

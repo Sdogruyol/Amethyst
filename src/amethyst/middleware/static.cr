@@ -1,7 +1,6 @@
 module Amethyst
   module Middleware
     class Static < Middleware::Base
-
       def initialize
         @static_dirs = Base::App.settings.static_dirs
         @app = self
@@ -25,7 +24,7 @@ module Amethyst
         @static_dirs.each do |dir|
           dir = dir.split "/"
           dir = dir.join "/"
-          dir = Base::App.settings.app_dir+dir+file
+          dir = Base::App.settings.app_dir + dir + file
           if File.file?(dir)
             result = dir
             break
@@ -37,7 +36,7 @@ module Amethyst
       private def mime_type(path)
         mime_type = "text/plain"
         mime_type = Mime.from_ext(File.extname(path).gsub(".", "")) as String
-       end
+      end
     end
   end
 end

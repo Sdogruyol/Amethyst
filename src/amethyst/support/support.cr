@@ -2,4 +2,3 @@
 
 # Amethyst dependencies
 require "./*"
-

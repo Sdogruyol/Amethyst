@@ -1,8 +1,8 @@
 require "./middleware"
+
 module Amethyst
   module Middleware
-    class Session < Middleware::Base 
-
+    class Session < Middleware::Base
       def initialize
         super()
         @session_pool = Base::App.session
@@ -13,14 +13,13 @@ module Amethyst
         response = @app.call(request)
         set_session(response, session_id) if !found
         return response
-      end 
+      end
 
       def get_session(request)
         cookies = [] of String
         if request.headers.has_key?("Cookie")
           cookies = request.headers["Cookie"].split(";")
         end
-        
         session_id = nil
         cookies.each do |cookie|
           if cookie.includes?("sid=")
@@ -35,7 +34,6 @@ module Amethyst
           request.headers["Cookie"] = cookies.join(";")
           return false, session_id
         end
-        
         return true, session_id
       end
 

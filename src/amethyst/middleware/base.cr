@@ -2,7 +2,6 @@
 module Amethyst
   module Middleware
     abstract class Base
-
       def initialize
         @app = self
       end
@@ -12,8 +11,8 @@ module Amethyst
       end
 
       def build(app)
-       @app = app
-       self
+        @app = app
+        self
       end
     end
   end

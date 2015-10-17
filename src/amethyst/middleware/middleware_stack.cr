@@ -1,13 +1,12 @@
 module Amethyst
   module Middleware
     class MiddlewareStack
-
       include Sugar::Klass
       singleton_INSTANCE
       include Enumerable(Class)
 
-      def initialize()
-        @middlewares   = [] of Middleware::Base.class
+      def initialize
+        @middlewares = [] of Middleware::Base.class
       end
 
       def build_middleware
@@ -25,7 +24,7 @@ module Amethyst
       end
 
       def each
-        0.upto(@middlewares.length-1) do |i|
+        0.upto(@middlewares.length - 1) do |i|
           yield @middlewares[i]
         end
       end
@@ -44,5 +43,4 @@ module Amethyst
     end
   end
 end
-
 # TODO: Implement insert_before, delete, etc.

@@ -1,11 +1,12 @@
 require "spec"
 require "../src/all"
 
-#require "minitest/autorun"
-#require "webmock"
+# require "minitest/autorun"
+# require "webmock"
 
 class IndexController < Base::Controller
   actions :hello, :bye, :hello_you
+
   def hello
     html "Hello"
   end
@@ -20,7 +21,6 @@ class IndexController < Base::Controller
 end
 
 class TestMiddleware < Middleware::Base
-
   def call(request) : Http::Response
     response = @app.call(request)
     response.body = "Request is processed"
@@ -40,7 +40,7 @@ class HttpHlp
   property :res
 
   def initialize
-    @req  = self.class.req("GET", "/")
+    @req = self.class.req("GET", "/")
     @res = self.class.res(200, "OK")
   end
 
@@ -54,14 +54,14 @@ class HttpHlp
   end
 
   def self.req(method, path)
-    headers      = HTTP::Headers.new
+    headers = HTTP::Headers.new
     base_request = HTTP::Request.new(method, path, headers, "Test")
-    request      = Http::Request.new(base_request)
+    request = Http::Request.new(base_request)
     request
   end
 
   def self.res(code, body)
-    response     = Http::Response.new(code, body)
+    response = Http::Response.new(code, body)
     response
   end
 end

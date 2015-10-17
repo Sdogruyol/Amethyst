@@ -3,16 +3,16 @@ module Amethyst
     class App
       property :port
       property :name
-      getter   :routes
+      getter :routes
 
-      def initialize(app_path= __FILE__, app_type={{@type.name.stringify}})
+      def initialize(app_path = __FILE__, app_type = {{@type.name.stringify}})
         @port = 8080
         @name = File.basename(app_path).gsub(/.\w+\Z/, "")
-        self.class.settings.app_dir   = ENV["PWD"]
+        self.class.settings.app_dir = ENV["PWD"]
         self.class.settings.namespace = get_app_namespace(app_type)
         set_default_middleware
         @app = Middleware::MiddlewareStack::INSTANCE.build_middleware
-        @http_handler  = Base::Handler.new(@app)
+        @http_handler = Base::Handler.new(@app)
       end
 
       # Shortcut for Config
@@ -44,9 +44,9 @@ module Amethyst
         self.middleware.use middleware
       end
 
-      def serve(port=8080)
+      def serve(port = 8080)
         @port = port.to_i
-        run_string    = "[Amethyst #{VERSION}] serving application \"#{@name}\" at http://127.0.0.1:#{@port}" #TODO move to Logger class
+        run_string = "[Amethyst #{VERSION}] serving application \"#{@name}\" at http://127.0.0.1:#{@port}" # TODO move to Logger class
         puts run_string
         App.logger.log_string run_string
         server = HTTP::Server.new port, @http_handler
@@ -62,7 +62,7 @@ module Amethyst
         namespace = ""
         if modules.size > 1
           modules.delete(modules.last)
-          namespace = modules.join(sep)+sep
+          namespace = modules.join(sep) + sep
         end
         namespace
       end

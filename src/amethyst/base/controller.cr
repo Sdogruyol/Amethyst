@@ -1,11 +1,11 @@
 module Amethyst
   module Base
     abstract class Controller
-      getter   :actions
+      getter :actions
       property :request
       property :response
       property :body
-      getter   :params
+      getter :params
 
       include Support::ControllerHelpers
       include Sugar::View
@@ -15,8 +15,8 @@ module Amethyst
         getter :processed
 
         def initialize(request : Http::Request, response : Http::Response)
-          @response  = response
-          @request   = request
+          @response = response
+          @request = request
           @processed = false
         end
 
@@ -61,7 +61,7 @@ module Amethyst
         end
       end
 
-      macro before_action(callback, only=[] of Symbol)
+      macro before_action(callback, only = [] of Symbol)
         {% if only.empty? %}
           {% only = @type.methods.map(&.name.stringify) %}
         {% end %}
@@ -83,7 +83,7 @@ module Amethyst
 
       # Creates a hash for controller actions
       # Then, invokes actions method to add actions to the hash
-      def initialize()
+      def initialize
         @request :: Http::Request
         @response :: Http::Response
         @actions = {} of String => ->
@@ -102,7 +102,7 @@ module Amethyst
       def respond_to(&block)
         formatter = Formatter.new(@request, @response)
         yield formatter
-        raise Exceptions::HttpBadRequest.new() unless formatter.processed
+        raise Exceptions::HttpBadRequest.new unless formatter.processed
       end
 
       # Works like Ruby's send(:method) to invoke controller action:
@@ -112,8 +112,8 @@ module Amethyst
         callback_result = true
         if before_callbacks = @before_callbacks[action]?
           callback_result = before_callbacks.each do |callback|
-            break false unless callback.call
-          end
+                              break false unless callback.call
+                            end
         end
         @actions[action].call if callback_result
         @response
@@ -129,5 +129,4 @@ module Amethyst
     end
   end
 end
-
 # TODO: Implement Http errors handling middleware

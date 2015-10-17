@@ -1,7 +1,6 @@
 require "./spec_helper"
 
 describe Base::Controller do
-
   describe "#initialize" do
     controller = create_controller_instance(IndexController)
 
@@ -42,7 +41,7 @@ describe Base::Controller do
       controller.request.header "Accept", "image/jpg"
       expect_raises HttpBadRequest do
         controller.respond_to do |format|
-          format.html {}
+          format.html { }
         end
       end
     end
@@ -61,19 +60,18 @@ describe Base::Controller do
   end
 
   describe Base::Controller::Formatter do
-
     describe "#html" do
       request, response = HttpHlp.get_env
 
       it "yields to the block if request.accept is 'text/html'" do
         request.headers["Accept"] = "text/html"
         formatter = Base::Controller::Formatter.new(request, response)
-        formatter.html {}
+        formatter.html { }
         formatter.processed.should eq true
 
         request.headers["Accept"] = "text/plain"
         formatter = Base::Controller::Formatter.new(request, response)
-        formatter.html {}
+        formatter.html { }
         formatter.processed.should eq false
       end
     end
@@ -84,12 +82,12 @@ describe Base::Controller do
       it "yields to the block regardless of value of request.accept" do
         request.headers["Accept"] = "text/html"
         formatter = Base::Controller::Formatter.new(request, response)
-        formatter.any {}
+        formatter.any { }
         formatter.processed.should eq true
 
         request.headers["Accept"] = "text/plain"
         formatter = Base::Controller::Formatter.new(request, response)
-        formatter.any {}
+        formatter.any { }
         formatter.processed.should eq true
       end
     end

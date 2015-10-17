@@ -1,12 +1,10 @@
 module Amethyst
   module Support
     module Callbacks
-
       class CallbackSequence
-
         def initialize
           @before = [] of -> Bool
-          @after  = [] of -> Bool
+          @after = [] of -> Bool
         end
 
         def before(before)
@@ -20,14 +18,14 @@ module Amethyst
         end
 
         def length
-          @before.size+@after.size
+          @before.size + @after.size
         end
 
         # invokes before callbacks each by one, than run code and invokes after callbacks
         def call(&block)
           result = true
           @before.each do |before_callback|
-            break result = false  unless before_callback.call
+            break result = false unless before_callback.call
           end
           if result
             result = yield
@@ -41,7 +39,7 @@ module Amethyst
 
       macro run_callbacks(callback, &block)
         callback_sequence = _{{callback.id}}_callbacks
-        {% methods = @type.methods.map(&.name.stringify).select(&.starts_with?("_set_"+callback.id.stringify)) %}
+        {% methods = @type.methods.map(&.name.stringify).select(&.starts_with?("_set_" + callback.id.stringify)) %}
         {% for method in methods %}
           {{method.id}}
         {% end %}
@@ -63,11 +61,9 @@ module Amethyst
           _{{callback.id}}_callbacks.{{kind.id}}(->{{method.id}})
         end
       end
-
     end
   end
 end
-
 # class Hello
 #   include Callbacks
 
@@ -78,11 +74,13 @@ end
 #     run_callbacks :on_hello do
 #       p "method"
 #     end
+#
 #   end
 
 #   def callback
 #     p "hello"
 #     true
+#
 #   end
 # end
 

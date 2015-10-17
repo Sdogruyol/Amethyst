@@ -3,4 +3,3 @@ module Amethyst
     class AmethystException < Exception; end
   end
 end
-

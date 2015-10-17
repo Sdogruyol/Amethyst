@@ -1,10 +1,9 @@
 require "./spec_helper"
 
 describe HeaderHelper do
-
   base_request = HTTP::Request.new("GET", "/")
-  request      = Http::Request.new(base_request)
-  response     = Http::Response.new(200, "OK")
+  request = Http::Request.new(base_request)
+  response = Http::Response.new(200, "OK")
 
   it "sets and returns headers" do
     request.header "Accept", "text/html"

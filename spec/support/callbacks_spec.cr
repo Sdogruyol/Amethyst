@@ -16,18 +16,17 @@ class CallbacksDefineTest
   end
 
   def before_method
-    @test_before = 5+8
+    @test_before = 5 + 8
     true
   end
 
   def after_method
-    @test_after = 6+9
+    @test_after = 6 + 9
     true
   end
 end
 
 describe Support::Callbacks::CallbackSequence do
-
   describe "#after #before" do
     callback_sequence = Callbacks::CallbackSequence.new
     it "adds proc to array and returns CallbackSequence object" do
@@ -39,9 +38,7 @@ describe Support::Callbacks::CallbackSequence do
     end
   end
 
-
   describe "#call" do
-
     it "calls callbacks and returns true if all callbacks returns true" do
       callback_sequence = Callbacks::CallbackSequence.new
       callback_sequence.before(->{ 1; true }).before(->{ 2; true })
@@ -54,7 +51,7 @@ describe Support::Callbacks::CallbackSequence do
       callback_sequence = Callbacks::CallbackSequence.new
       callback_sequence.before(->{ 1; true }).before(->{ 2; true })
       callback_sequence.after(->{ 1; false }).after(->{ 2; true })
-      result = callback_sequence.call {}
+      result = callback_sequence.call { }
       result.should eq false
     end
   end
